@@ -1,0 +1,24 @@
+<h2>Ajouter un étudiant</h2>
+<form (ngSubmit)="ajouterEtudiant()">
+  <label for="nom">Nom:</label>
+  <input id="nom" [(ngModel)]="nouvelEtudiant.nom" name="nom" required>
+
+  <label for="prenom">Prénom:</label>
+  <input id="prenom" [(ngModel)]="nouvelEtudiant.prenom" name="prenom" required>
+
+  <label for="adresse">Adresse:</label>
+  <input id="adresse" [(ngModel)]="nouvelEtudiant.adresse" name="adresse">
+
+  <button type="submit">Enregistrer</button>
+</form>
+
+<hr>
+
+<!-- Liste des étudiants -->
+<h2>Liste des étudiants</h2>
+<ul>
+  <li *ngFor="let etu of etudiants">
+    {{ etu.nom }} {{ etu.prenom }} | {{ etu.adresse }}
+    <button (click)="supprimerEtudiant(etu.id)">Supprimer</button>
+  </li>
+</ul>
