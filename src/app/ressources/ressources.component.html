@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <h1 class="fw-bold">Liste des ressources</h1>
+  
+    <div class="card shadow p-4">
+      <div class="d-flex mb-3">
+        <input 
+          type="text" 
+          [(ngModel)]="searchText" 
+          class="form-control" 
+          placeholder="Rechercher une ressource..."
+        />
+      </div>
+  
+      <div *ngIf="filteredRessources.length === 0" class="text-muted">
+        Aucune ressource trouvée.
+      </div>
+  
+      <ul class="list-group">
+        <li 
+          *ngFor="let ressource of filteredRessources" 
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          <span>{{ ressource.nom }}</span>
+          <a [routerLink]="['/ressource', ressource.id]" class="btn btn-primary btn-sm">
+            Consulter
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
