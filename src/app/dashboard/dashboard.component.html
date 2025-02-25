@@ -1,0 +1,45 @@
+<div class="dashboard-container">
+    <h1>Dashboard</h1>
+    <!-- Section Profil -->
+    <div class="profile-section">
+      <img [src]="dashboardData?.user.photoUrl" alt="Photo de profil" class="profile-img" />
+      <h2>Bienvenue, {{ dashboardData?.user.firstName }}</h2>
+      <input type="file" (change)="onProfileImageChange($event)" />
+    </div>
+  
+    <!-- Section Assignments / Evaluations -->
+    <div class="assignments-section" *ngIf="dashboardData?.assignments?.length">
+      <h2>
+        {{ dashboardData.user.isProfessor ? "Evaluations à réaliser" : "Vos rendus non déposés" }}
+      </h2>
+      <ul>
+        <li *ngFor="let assignment of dashboardData.assignments">
+          {{ assignment.name }} - {{ assignment.dueDate | date:'short' }}
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Section Défenses -->
+    <div class="defenses-section" *ngIf="dashboardData?.defenses?.length">
+      <h2>
+        {{ dashboardData.user.isProfessor ? "Soutenances en jury" : "Vos prochaines soutenances" }}
+      </h2>
+      <ul>
+        <li *ngFor="let defense of dashboardData.defenses">
+          {{ defense.title }} - {{ defense.date | date:'short' }}
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Section Notifications -->
+    <div class="notifications-section">
+      <h2>Notifications ({{ dashboardData?.notifications?.length || 0 }})</h2>
+      <ul>
+        <li *ngFor="let notif of dashboardData.notifications">
+          <span>{{ notif.date | date:'short' }} : {{ notif.message }}</span>
+          <button (click)="deleteNotification(notif.id)">Supprimer</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
