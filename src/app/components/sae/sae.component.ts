@@ -32,6 +32,7 @@ export class SaeComponent implements OnInit {
 
   addSae(): void {
     this.saeService.addSae(this.newSae).subscribe(() => {
+      console.log("ADD SAE")
       this.loadSaes();
       this.newSae = { nom: '', anneeUniversitaire: 2024, semestreUniversitaire: 1, sujet: '' };
     });

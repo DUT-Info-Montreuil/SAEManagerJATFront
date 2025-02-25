@@ -14,13 +14,7 @@ import { Etudiant } from '../../../../src/app/models/etudiant.model';
 export class EtudiantComponent implements OnInit {
 
   etudiants: Etudiant[] = [];
-
-
-  nouvelEtudiant: Etudiant = {
-    nom: '',
-    prenom: '',
-    adresse: ''
-  };
+  nouvelEtudiant: Etudiant = { nom: '', prenom: '', adresse: '' };
 
   constructor(private etudiantService: EtudiantService) {}
 
@@ -35,14 +29,28 @@ export class EtudiantComponent implements OnInit {
     });
   }
 
-  ajouterEtudiant(): void {
-    this.etudiantService.create(this.nouvelEtudiant).subscribe({
-      next: () => {
-        this.chargerEtudiants();
-        this.nouvelEtudiant = { nom: '', prenom: '', adresse: '' };
-      },
-      error: (err) => console.error(err),
-    });
+  ajouterOuModifierEtudiant(): void {
+    if (this.nouvelEtudiant.id) {
+      this.etudiantService.update(this.nouvelEtudiant).subscribe({
+        next: () => {
+          this.chargerEtudiants();
+          this.nouvelEtudiant = { nom: '', prenom: '', adresse: '' };
+        },
+        error: (err) => console.error(err),
+      });
+    } else {
+      this.etudiantService.create(this.nouvelEtudiant).subscribe({
+        next: () => {
+          this.chargerEtudiants();
+          this.nouvelEtudiant = { nom: '', prenom: '', adresse: '' };
+        },
+        error: (err) => console.error(err),
+      });
+    }
+  }
+
+  modifierEtudiant(etu: Etudiant): void {
+    this.nouvelEtudiant = { ...etu };
   }
 
   supprimerEtudiant(id?: number): void {

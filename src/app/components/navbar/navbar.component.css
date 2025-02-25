@@ -2,3 +2,7 @@
   background: rgba(0, 0, 0, 0.8) !important;
   backdrop-filter: blur(10px);
 }
+.navbar-nav .nav-link {
+  color: white !important;
+}
+

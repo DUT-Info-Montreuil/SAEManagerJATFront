@@ -27,4 +27,14 @@ export class EtudiantService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  update(etudiant: Etudiant): Observable<Etudiant> {
+    return this.http.put<Etudiant>(`${this.apiUrl}/${etudiant.id}`, etudiant);
+  }
+
+  getEtudiantsSansGroupe(): Observable<Etudiant[]> {
+    return this.http.get<Etudiant[]>(`${this.apiUrl}/sans-groupe`);
+  }
+
+
 }
