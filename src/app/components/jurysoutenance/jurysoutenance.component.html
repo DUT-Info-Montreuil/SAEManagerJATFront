@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <h2 class="text-center">Gestion du Jury</h2>
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th>ID Soutenance</th>
+      <th>ID Personne</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let jury of jurys">
+      <td>{{ jury.soutenance.idSoutenance }}</td>
+      <td>{{ jury.personne.idPersonne }}</td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteJury(jury.idJurySoutenance)">
+          <i class="bi bi-trash"></i> Supprimer
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3 class="mt-4">Ajouter un Jury</h3>
+  <div class="card p-3 shadow">
+    <div class="mb-3">
+      <label class="form-label">ID Soutenance</label>
+      <input type="number" class="form-control" [(ngModel)]="newJury.soutenance.idSoutenance">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">ID Personne</label>
+      <input type="number" class="form-control" [(ngModel)]="newJury.personne.idPersonne">
+    </div>
+    <button class="btn btn-primary w-100" (click)="addJury()">Ajouter</button>
+  </div>
+</div>

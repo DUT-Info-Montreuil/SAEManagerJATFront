@@ -1,0 +1,73 @@
+<div class="container mt-4">
+  <h2 class="text-center">Gestion des SAEs</h2>
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th>Nom</th>
+      <th>Année</th>
+      <th>Semestre</th>
+      <th>Sujet</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let sae of saes">
+      <td>{{ sae.nom }}</td>
+      <td>{{ sae.anneeUniversitaire }}</td>
+      <td>{{ sae.semestreUniversitaire }}</td>
+      <td>{{ sae.sujet }}</td>
+      <td>
+        <button class="btn btn-warning btn-sm me-2" (click)="editSae(sae)">
+          <i class="bi bi-pencil"></i> Modifier
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="deleteSae(sae.idSAE)">
+          <i class="bi bi-trash"></i> Supprimer
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3 class="mt-4">Ajouter une SAE</h3>
+  <div class="card p-3 shadow">
+    <div class="mb-3">
+      <label class="form-label">Nom</label>
+      <input type="text" class="form-control" [(ngModel)]="newSae.nom">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Année Universitaire</label>
+      <input type="number" class="form-control" [(ngModel)]="newSae.anneeUniversitaire">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Semestre</label>
+      <input type="number" class="form-control" [(ngModel)]="newSae.semestreUniversitaire">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Sujet</label>
+      <input type="text" class="form-control" [(ngModel)]="newSae.sujet">
+    </div>
+    <button class="btn btn-primary w-100" (click)="addSae()">Ajouter</button>
+  </div>
+
+  <h3 class="mt-4" *ngIf="selectedSae">Modifier la SAE</h3>
+  <div class="card p-3 shadow" *ngIf="selectedSae">
+    <div class="mb-3">
+      <label class="form-label">Nom</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedSae.nom">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Année Universitaire</label>
+      <input type="number" class="form-control" [(ngModel)]="selectedSae.anneeUniversitaire">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Semestre</label>
+      <input type="number" class="form-control" [(ngModel)]="selectedSae.semestreUniversitaire">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Sujet</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedSae.sujet">
+    </div>
+    <button class="btn btn-success w-100" (click)="updateSae()">Mettre à jour</button>
+  </div>
+</div>

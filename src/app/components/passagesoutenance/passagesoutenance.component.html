@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h2 class="text-center">Gestion des Passages de Soutenance</h2>
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th>ID Soutenance</th>
+      <th>ID Étudiant</th>
+      <th>ID Groupe</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let passage of passages">
+      <td>{{ passage.soutenance.idSoutenance }}</td>
+      <td>{{ passage.etudiant.idPersonne }}</td>
+      <td>{{ passage.groupe.idGroupe }}</td>
+      <td>{{ passage.date | date:'dd/MM/yyyy HH:mm' }}</td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deletePassage(passage.idPassage)">
+          <i class="bi bi-trash"></i> Supprimer
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3 class="mt-4">Ajouter un Passage</h3>
+  <div class="card p-3 shadow">
+    <div class="mb-3">
+      <label class="form-label">ID Soutenance</label>
+      <input type="number" class="form-control" [(ngModel)]="newPassage.soutenance.idSoutenance">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">ID Étudiant</label>
+      <input type="number" class="form-control" [(ngModel)]="newPassage.etudiant.idPersonne">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">ID Groupe</label>
+      <input type="number" class="form-control" [(ngModel)]="newPassage.groupe.idGroupe">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Date</label>
+      <input type="datetime-local" class="form-control" [(ngModel)]="newPassage.date">
+    </div>
+    <button class="btn btn-primary w-100" (click)="addPassage()">Ajouter</button>
+  </div>
+</div>

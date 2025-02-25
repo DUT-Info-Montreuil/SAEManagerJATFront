@@ -1,7 +1,17 @@
-<nav class="navbar">
-  <a class="brand" routerLink="">Mon Application</a>
-  <ul>
-    <li><a routerLink="/etudiants">Liste Etudiants</a></li>
-    <li><a routerLink="/etudiants/add">Ajouter Etudiant</a></li>
-  </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">SAE Manager</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" routerLink="/acceuil">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/saes">SAEs</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/soutenances">Soutenances</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/jury-soutenance">Jury</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/etudiants">Étudiants</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>

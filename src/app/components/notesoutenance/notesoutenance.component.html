@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2 class="text-center">Gestion des Notes de Soutenance</h2>
+
+  <table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th>ID Soutenance</th>
+      <th>ID Étudiant</th>
+      <th>Note</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let note of notes">
+      <td>{{ note.soutenance.idSoutenance }}</td>
+      <td>{{ note.etudiant.idPersonne }}</td>
+      <td>{{ note.note }}</td>
+      <td>
+        <button class="btn btn-warning btn-sm me-2" (click)="editNote(note)">
+          <i class="bi bi-pencil"></i> Modifier
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="deleteNote(note.idNote)">
+          <i class="bi bi-trash"></i> Supprimer
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3 class="mt-4">Ajouter une Note</h3>
+  <div class="card p-3 shadow">
+    <div class="mb-3">
+      <label class="form-label">ID Soutenance</label>
+      <input type="number" class="form-control" [(ngModel)]="newNote.soutenance.idSoutenance">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">ID Étudiant</label>
+      <input type="number" class="form-control" [(ngModel)]="newNote.etudiant.idPersonne">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Note</label>
+      <input type="number" class="form-control" [(ngModel)]="newNote.note">
+    </div>
+    <button class="btn btn-primary w-100" (click)="addNote()">Ajouter</button>
+  </div>
+</div>
