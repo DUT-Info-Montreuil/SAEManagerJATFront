@@ -1,8 +1,8 @@
 <div class="container mt-4">
-  <h2 class="text-center">Gestion des Passages de Soutenance</h2>
+  <h2 class="text-center text-light">Gestion des Passages de Soutenance</h2>
 
-  <table class="table table-striped">
-    <thead class="table-dark">
+  <table class="table table-dark table-striped mt-3">
+    <thead>
     <tr>
       <th>ID Soutenance</th>
       <th>ID Étudiant</th>
@@ -18,6 +18,7 @@
       <td>{{ passage.groupe.idGroupe }}</td>
       <td>{{ passage.date | date:'dd/MM/yyyy HH:mm' }}</td>
       <td>
+
         <button class="btn btn-danger btn-sm" (click)="deletePassage(passage.idPassage)">
           <i class="bi bi-trash"></i> Supprimer
         </button>

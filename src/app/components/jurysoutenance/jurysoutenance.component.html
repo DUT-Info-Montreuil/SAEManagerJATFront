@@ -1,8 +1,8 @@
 <div class="container mt-4">
-  <h2 class="text-center">Gestion du Jury</h2>
+  <h2 class="text-center text-light">Gestion du Jury</h2>
 
-  <table class="table table-striped">
-    <thead class="table-dark">
+  <table class="table table-dark table-striped mt-3">
+    <thead>
     <tr>
       <th>ID Soutenance</th>
       <th>ID Personne</th>
@@ -14,6 +14,7 @@
       <td>{{ jury.soutenance.idSoutenance }}</td>
       <td>{{ jury.personne.idPersonne }}</td>
       <td>
+
         <button class="btn btn-danger btn-sm" (click)="deleteJury(jury.idJurySoutenance)">
           <i class="bi bi-trash"></i> Supprimer
         </button>

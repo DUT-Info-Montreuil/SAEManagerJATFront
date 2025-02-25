@@ -1,0 +1,381 @@
+
+:root {
+    --menu-color: #0D1117;
+    --sous-menu-color : #373337;
+    --sae-color: #7171FF;
+    --rendus-color: #F1B2FD;
+    --create-sae-color: #B2B2FD;
+    --soutenance-color: #fdccb2;
+    --ressource-color: #B4FFEA;
+}
+
+#background-desature {
+    position: relative;
+}
+
+#background-desature::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('background.png');
+    background-repeat: repeat;
+    filter: contrast(30%) grayscale(100%) brightness(180%);
+    z-index: -1;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.menu {
+    background-color: var(--menu-color);
+}
+
+.sous-menu {
+    background-color: var(--sous-menu-color);
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.icon {
+    fill: white;
+}
+
+/* Home Page */
+
+.card {
+    border: none;
+    border-radius: 0 0 20px 20px;
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-sae {
+    background: var(--sae-color);
+
+}
+
+.card-rendus {
+    background: var(--rendus-color);
+}
+
+.card-create-sae {
+    background: var(--create-sae-color);
+}
+.card-soutenance {
+    background: var(--soutenance-color);
+}
+
+.card-ressource {
+    background: var(--ressource-color);
+}
+
+.card-sae:hover,
+.card-sae-content:hover,
+.card-rendus:hover,
+.card-soutenance:hover,
+.card-rendus-content:hover,
+.card-create-sae:hover,
+.card-ressources:hover
+.card-ressources-content:hover,
+.card-ressource:hover {
+    transform: scale(1.05);
+}
+
+.w-25px {
+    width: 25px;
+}
+
+.h-25px {
+    height: 25px;
+}
+
+.min-h75 {
+    min-height: 75%;
+}
+
+/* Left Nav Bar */
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: var(--menu-color);
+    color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s ease;
+    z-index: 1;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.side-menu ul li {
+    margin: 15px 0;
+}
+
+.side-menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.side-menu.active {
+    left: 0;
+    z-index: 1050;
+}
+
+.w-200px {
+    min-width: 200px;
+}
+
+.zone-texte {
+    margin-top: 15px;
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+  }
+
+  .resource-item {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.resource-item:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* CONNEXION */
+
+.images-container {
+    height: auto;
+    max-height: 75%;
+}
+
+
+.illustration-container {
+    padding: 20px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(90deg, #E54C91, #F48B7B, #F7AD50);
+    flex: 1;
+    height: 100%;
+}
+
+.img-fluid {
+    max-width: 80%;
+    height: auto;
+}
+
+.form-container {
+    padding: 20px;
+    background-color: white;
+    flex: 1;
+    height: 100%;
+}
+
+.sae-manager-text {
+    background: linear-gradient(90deg, #E54C91, #F48B7B, #F7AD50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.input-group-text {
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 0;
+}
+
+.input-group .form-control {
+    border-left: none;
+    border-radius: 0;
+}
+
+.card-connexion {
+    max-width: 900px;
+    height: 600px;
+}
+
+
+/* Page de chargement */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background: rgba(0, 0, 0, 0.5); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .loader-container {
+    text-align: center;
+    color: #fff;
+  }
+
+  .loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    animation: spin 0.5s linear infinite;
+  }
+
+  .loading-text {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    color: #fff;
+    display: none;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+    .table-header {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.table-header:hover {
+    background-color: #e9ecef;
+}
+
+.table-header h4 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.group-table {
+    display: none;
+    margin-top: 15px;
+}
+
+.group-table.collapsed {
+    display: block;
+}
+
+.table-secondary th {
+    background-color: #e9ecef;
+    font-weight: bold;
+}
+
+.fas {
+    font-size: 18px;
+    color: #007bff;
+    transition: transform 0.3s ease;
+}
+
+.fas.fa-chevron-up {
+    transform: rotate(180deg);
+}
+.table-wrapper {
+    display: block; /* Afficher par défaut */
+    transition: max-height 0.3s ease-out;
+}
+
+.table-wrapper.collapsed {
+    display: none;
+}
+
+.card-general {
+    height: auto !important;
+    padding-bottom: 20px;
+    margin-bottom: 20px; /* Espace interne en bas */
+}
+
+/* Animation pour une transition plus douce */
+.table-wrapper table {
+    max-height: 1000px;
+    transition: max-height 0.3s ease-out;
+}
+
+@media (max-width: 1200px) {
+    .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        margin-bottom: 20px;
+        height: 100% !important;
+    }
+
+    .card-sae, .card-create-sae, .card-rendus {
+        height: 20% !important;
+    }
+
+    .card-sae-content, .card-rendus-content{
+        height: 100% !important;
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .card-sae, .card-create-sae, .card-rendus {
+        height: 30% !important;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .d-flex {
+        padding: 10px;
+    }
+
+    .card {
+        width: auto;
+        margin-bottom: 15px;
+        height: 100% !important;
+    }
+
+    .card-sae, .card-create-sae, .card-rendus {
+        height: 10% !important;
+    }
+
+    .card-sae-content, .card-rendus-content {
+        height: 100% !important;
+        width: 100% !important;
+    }
+}
+
+
+
+
+
