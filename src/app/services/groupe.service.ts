@@ -39,4 +39,9 @@ export class GroupeService {
     return this.http.delete<Groupe>(`${this.apiUrl}/${groupeId}/supprimer-etudiant/${etudiantId}`);
   }
 
+  deleteGroupe(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+
 }

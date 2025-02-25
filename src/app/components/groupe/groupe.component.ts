@@ -58,11 +58,15 @@ export class GroupeComponent implements OnInit {
 
   supprimerGroupe(id?: number): void {
     if (!id) return;
-    this.groupeService.delete(id).subscribe({
-      next: () => this.chargerGroupes(),
+    this.groupeService.deleteGroupe(id).subscribe({
+      next: () => {
+        this.chargerGroupes();
+        this.chargerEtudiantsSansGroupe();
+      },
       error: (err) => console.error(err),
     });
   }
+
 
   ajouterEtudiantAuGroupe(groupeId: number, etudiantId: number): void {
     this.groupeService.addEtudiantToGroupe(groupeId, etudiantId).subscribe({
