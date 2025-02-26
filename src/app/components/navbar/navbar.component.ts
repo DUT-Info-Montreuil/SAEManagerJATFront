@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
+import {AuthService} from '../../services/auth-service.service';
 
 @Component({
   standalone: true,
@@ -9,4 +10,16 @@ import { RouterModule } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {}
+
+
+export class NavbarComponent {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/connexion']); // Redirection vers la page de connexion
+  }
+}

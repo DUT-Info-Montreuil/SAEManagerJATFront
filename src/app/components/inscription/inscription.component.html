@@ -1,0 +1,64 @@
+<div class="container mt-5 h-100">
+  <h1 class="fw-bold text-center">Inscription</h1>
+
+  <div class="card shadow bg-white rounded mx-auto p-4 d-flex flex-column flex-md-row card-connexion">
+    <!-- Illustration -->
+    <div class="illustration-container d-flex justify-content-center align-items-center flex-column rounded-2">
+      <img src="assets/img/Saly-13.png" alt="Illustration" class="img-fluid">
+    </div>
+
+    <!-- Formulaire d'inscription -->
+    <div class="form-container d-flex flex-column justify-content-center align-items-center p-4">
+      <div class="text-center mb-4">
+        <p>Bienvenue sur <span class="sae-manager-text">SAÉ MANAGER</span>, l’outil qui va te changer la vie !</p>
+      </div>
+
+      <p class="text-danger text-center mb-3">{{ errorMessage }}</p>
+
+      <form (ngSubmit)="inscription()" class="w-100">
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" [(ngModel)]="nom" name="nom" class="form-control" placeholder="Nom" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" [(ngModel)]="prenom" name="prenom" class="form-control" placeholder="Prénom" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="Email universitaire" required>
+            <span class="input-group-text">&#64;iut.univ-paris8.fr</span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Mot de passe" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Rôle</label>
+          <select [(ngModel)]="role" name="role" class="form-control" required>
+            <option value="eleve">Élève</option>
+            <option value="prof">Professeur</option>
+            <option value="admin">Administrateur</option>
+          </select>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+        </div>
+      </form>
+
+      <div class="text-center mt-3">
+        <p>Vous avez déjà un compte ? <a routerLink="/connexion" class="btn btn-link">Connectez-vous</a></p>
+      </div>
+    </div>
+  </div>
+</div>

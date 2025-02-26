@@ -6,11 +6,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" routerLink="/saes">SAEs</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/soutenances">Soutenances</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/jury-soutenance">Jury</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/etudiants">Étudiants</a></li>
-        <a class="nav-link" routerLink="/groupes">Groupes</a>
+        <li class="nav-item"><a class="nav-link" routerLink="/">Accueil</a></li>
+
+        <ng-container *ngIf="isLoggedIn()">
+          <li class="nav-item"><a class="nav-link" routerLink="/saes">SAEs</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/soutenances">Soutenances</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/jury-soutenance">Jury</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/etudiants">Étudiants</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/groupes">Groupes</a></li>
+          <li class="nav-item">
+            <a class="nav-link text-danger" (click)="logout()">Déconnexion</a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="!isLoggedIn()">
+          <li class="nav-item"><a class="nav-link" routerLink="/connexion">Connexion</a></li>
+        </ng-container>
       </ul>
     </div>
   </div>

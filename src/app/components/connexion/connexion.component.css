@@ -1,0 +1,19 @@
+body {
+  background: url('/assets/img/RectangleJoliePageConnexion.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.card-connexion {
+  max-width: 800px;
+}
+
+.illustration-container {
+  flex: 1;
+  background: rgba(240, 240, 240, 0.5);
+  padding: 20px;
+}
+
+.sae-manager-text {
+  font-weight: bold;
+  color: #007bff;
+}

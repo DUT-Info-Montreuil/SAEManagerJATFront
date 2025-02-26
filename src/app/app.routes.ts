@@ -8,17 +8,22 @@ import {PassagesoutenanceComponent} from './components/passagesoutenance/passage
 import {SaeComponent} from './components/sae/sae.component';
 import {SoutenanceComponent} from './components/soutenance/soutenance.component';
 import { GroupeComponent } from './components/groupe/groupe.component';
+import {ConnexionComponent} from './components/connexion/connexion.component';
+import {InscriptionComponent} from './components/inscription/inscription.component';
 
 
 
 
 export const routes: Routes = [
-  { path: 'acceuil', component: HomeComponent}, // Page d'accueil
+  { path: 'acceuil', component: HomeComponent},
+  { path: '', component: HomeComponent, pathMatch: "full"},
   { path: 'etudiants', component: EtudiantComponent },
   { path: 'soutenances', component: SoutenanceComponent },
   { path: 'passages-soutenance', component: PassagesoutenanceComponent },
   { path: 'notes-soutenance', component: NotesoutenanceComponent },
   { path: 'jury-soutenance', component: JurysoutenanceComponent },
   { path: 'saes', component: SaeComponent },
-  { path: 'groupes', component: GroupeComponent }
+  { path: 'groupes', component: GroupeComponent },
+  { path: 'connexion', component: ConnexionComponent },
+  {path: 'inscription', component: InscriptionComponent}
 ];

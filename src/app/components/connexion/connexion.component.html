@@ -1,0 +1,42 @@
+<div class="container mt-5 h-100">
+  <h1 class="fw-bold text-center">Connexion</h1>
+
+  <div class="card shadow bg-white rounded mx-auto p-4 d-flex flex-column flex-md-row card-connexion">
+    <!-- Illustration -->
+    <div class="illustration-container d-flex justify-content-center align-items-center flex-column rounded-2">
+      <img src="assets/img/Saly-13.png" alt="Illustration" class="img-fluid">
+    </div>
+
+    <!-- Formulaire de connexion -->
+    <div class="form-container d-flex flex-column justify-content-center align-items-center p-4">
+      <div class="text-center mb-4">
+        <p>Bienvenue sur <span class="sae-manager-text">SAÉ MANAGER</span>, l’outil qui va te changer la vie !</p>
+      </div>
+
+      <p class="text-danger text-center mb-3">{{ errorMessage }}</p>
+
+      <form (ngSubmit)="connexion()" class="w-100">
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" [(ngModel)]="email" name="email" class="form-control" placeholder="Nom d'utilisateur" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Mot de passe" required>
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+        </div>
+      </form>
+
+      <!-- Lien vers l'inscription -->
+      <div class="text-center mt-3">
+        <p>Vous n'avez pas de compte ? <a routerLink="/inscription" class="btn btn-link">Inscrivez-vous</a></p>
+      </div>
+    </div>
+  </div>
+</div>
