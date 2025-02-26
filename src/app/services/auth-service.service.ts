@@ -35,7 +35,7 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  inscription(nom: string, prenom: string, email: string, password: string, estProf: number, estAdmin: number | null): Observable<any> {
+  inscription(nom: string, prenom: string, email: string, password: string, estProf: boolean, estAdmin: number | null): Observable<any> {
     return this.http.post(`${this.baseUrl}/inscription`, {
       nom,
       prenom,

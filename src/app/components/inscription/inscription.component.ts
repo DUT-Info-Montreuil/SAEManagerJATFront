@@ -25,11 +25,11 @@ export class InscriptionComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   inscription(): void {
-    let estProf = 0;
+    let estProf = false;
     let estAdmin = null;
 
     if (this.role === 'prof') {
-      estProf = 1;
+      estProf = true;
     } else if (this.role === 'admin') {
       estAdmin = 1;
     }
