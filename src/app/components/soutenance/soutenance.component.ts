@@ -1,14 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {SoutenanceService} from '../../services/soutenance.service';
 import {FormsModule} from '@angular/forms';
-import {DatePipe, NgForOf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {AuthService} from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-soutenance',
   imports: [
     FormsModule,
     DatePipe,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './soutenance.component.html',
   styleUrl: './soutenance.component.css'
@@ -19,7 +21,8 @@ export class SoutenanceComponent implements OnInit {
   newSoutenance = { titre: '', salle: '', date: '', sae: { idSAE: 1 } };
   selectedSoutenance: any = null;
 
-  constructor(private soutenanceService: SoutenanceService) { }
+
+  constructor(private soutenanceService: SoutenanceService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadSoutenances();
@@ -36,6 +39,10 @@ export class SoutenanceComponent implements OnInit {
       this.loadSoutenances();
       this.newSoutenance = { titre: '', salle: '', date: '', sae: { idSAE: 1 } };
     });
+  }
+
+  estProf(): boolean {
+    return this.authService.getRole() === 'PROF';
   }
 
   editSoutenance(soutenance: any): void {

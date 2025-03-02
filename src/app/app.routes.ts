@@ -10,6 +10,7 @@ import {SoutenanceComponent} from './components/soutenance/soutenance.component'
 import { GroupeComponent } from './components/groupe/groupe.component';
 import {ConnexionComponent} from './components/connexion/connexion.component';
 import {InscriptionComponent} from './components/inscription/inscription.component';
+import {AuthGuard} from './components/connexion/bloquepage.guard';
 
 
 
@@ -17,13 +18,13 @@ import {InscriptionComponent} from './components/inscription/inscription.compone
 export const routes: Routes = [
   { path: 'acceuil', component: HomeComponent},
   { path: '', component: HomeComponent, pathMatch: "full"},
-  { path: 'etudiants', component: EtudiantComponent },
-  { path: 'soutenances', component: SoutenanceComponent },
-  { path: 'passages-soutenance', component: PassagesoutenanceComponent },
-  { path: 'notes-soutenance', component: NotesoutenanceComponent },
-  { path: 'jury-soutenance', component: JurysoutenanceComponent },
-  { path: 'saes', component: SaeComponent },
-  { path: 'groupes', component: GroupeComponent },
+  { path: 'etudiants', component: EtudiantComponent, canActivate: [AuthGuard] },
+  { path: 'soutenances', component: SoutenanceComponent, canActivate: [AuthGuard] },
+  { path: 'passages-soutenance', component: PassagesoutenanceComponent, canActivate: [AuthGuard] },
+  { path: 'notes-soutenance', component: NotesoutenanceComponent, canActivate: [AuthGuard] },
+  { path: 'jury-soutenance', component: JurysoutenanceComponent, canActivate: [AuthGuard] },
+  { path: 'saes', component: SaeComponent, canActivate: [AuthGuard] },
+  { path: 'groupes', component: GroupeComponent, canActivate: [AuthGuard] },
   { path: 'connexion', component: ConnexionComponent },
   {path: 'inscription', component: InscriptionComponent}
 ];

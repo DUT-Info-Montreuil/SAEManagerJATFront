@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SaeService } from '../../services/sae.service';
 import {FormsModule} from '@angular/forms';
 import {NgForOf, NgIf} from '@angular/common';
+import {AuthService} from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-saes',
@@ -18,7 +19,7 @@ export class SaeComponent implements OnInit {
   newSae = { nom: '', anneeUniversitaire: 2024, semestreUniversitaire: 1, sujet: '' };
   selectedSae: any = null;
 
-  constructor(private saeService: SaeService) { }
+  constructor(private saeService: SaeService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadSaes();
@@ -40,6 +41,10 @@ export class SaeComponent implements OnInit {
 
   editSae(sae: any): void {
     this.selectedSae = { ...sae };
+  }
+
+  estProf(): boolean {
+    return this.authService.getRole() === 'PROF';
   }
 
   updateSae(): void {

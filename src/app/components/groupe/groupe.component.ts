@@ -5,6 +5,7 @@ import { GroupeService } from '../../services/groupe.service';
 import { EtudiantService } from '../../services/etudiant.service';
 import { Groupe } from '../../models/groupe.model';
 import { Etudiant } from '../../models/etudiant.model';
+import {AuthService} from '../../services/auth-service.service';
 
 @Component({
   standalone: true,
@@ -20,7 +21,7 @@ export class GroupeComponent implements OnInit {
   selectedEtudiant?: number;
 
 
-  constructor(private groupeService: GroupeService, private etudiantService: EtudiantService) {}
+  constructor(private groupeService: GroupeService, private etudiantService: EtudiantService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.chargerGroupes();
@@ -77,6 +78,11 @@ export class GroupeComponent implements OnInit {
       error: (err) => console.error(err),
     });
   }
+
+  estProf(): boolean{
+      return this.authService.getRole() === 'PROF';
+}
+
 
   retirerEtudiantDuGroupe(groupeId: number, etudiantId: number): void {
     this.groupeService.removeEtudiantFromGroupe(groupeId, etudiantId).subscribe({

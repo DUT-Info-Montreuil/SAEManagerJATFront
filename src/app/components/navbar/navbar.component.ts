@@ -22,4 +22,8 @@ export class NavbarComponent {
     this.authService.logout();
     this.router.navigate(['/connexion']); // Redirection vers la page de connexion
   }
+
+  estProf():boolean{
+    return this.authService.getRole() === 'PROF';
+  }
 }
