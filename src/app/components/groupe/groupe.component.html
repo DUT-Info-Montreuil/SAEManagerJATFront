@@ -9,21 +9,35 @@
         <label for="nom" class="form-label">Nom du groupe :</label>
         <input id="nom" [(ngModel)]="nouvelGroupe.nom" name="nom" class="form-control" required>
       </div>
+
+      <div class="mb-3">
+        <label for="sae" class="form-label">SAE :</label>
+        <select id="sae" [(ngModel)]="selectedSaeId" name="sae" class="form-select" required>
+          <option value="" disabled selected>-- Sélectionner une SAE --</option>
+          <option *ngFor="let sae of saes" [value]="sae.idSAE">
+            {{ sae.nom }} - {{ sae.sujet }}
+          </option>
+        </select>
+      </div>
       <div class="text-center">
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!nouvelGroupe.nom || !selectedSaeId">
+          Ajouter
+        </button>
       </div>
     </form>
   </div>
 
 
-  <h3 class="mt-5 text-center">Liste des groupes</h3>
   <div class="row mt-3">
     <div class="col-md-4 mb-4" *ngFor="let groupe of groupes">
       <div class="card shadow-sm">
         <div class="card-body">
           <h5 class="card-title">{{ groupe.nom }}</h5>
+          <!-- Affichage de la SAE du groupe -->
+          <p class="card-text" *ngIf="groupe.sae">
+            <strong>SAE :</strong> {{ groupe.sae.nom }} - {{ groupe.sae.sujet }}
+          </p>
           <p class="card-text"><strong>Étudiants :</strong></p>
-
 
           <ul *ngIf="groupe.etudiants && groupe.etudiants.length > 0; else noEtudiant">
             <li *ngFor="let etudiant of groupe.etudiants">
@@ -38,7 +52,6 @@
             <p class="text-muted">Aucun étudiant dans ce groupe</p>
           </ng-template>
 
-
           <div class="mt-3">
             <label for="etudiant">Ajouter un étudiant :</label>
             <select [(ngModel)]="selectedEtudiant" class="form-select" name="etudiant">
@@ -50,7 +63,7 @@
                     (click)="ajouterEtudiantAuGroupe(groupe.id!, Number(selectedEtudiant))">
               Ajouter
             </button>
-            <button  class="btn btn-danger btn-sm mt-2"
+            <button class="btn btn-danger btn-sm mt-2"
                     *ngIf="groupe.id"
                     (click)="supprimerGroupe(groupe.id!)">
               Supprimer le groupe
@@ -60,4 +73,3 @@
       </div>
     </div>
   </div>
-</div>

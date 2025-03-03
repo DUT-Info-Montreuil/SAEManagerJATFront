@@ -6,6 +6,7 @@ import { EtudiantService } from '../../services/etudiant.service';
 import { Groupe } from '../../models/groupe.model';
 import { Etudiant } from '../../models/etudiant.model';
 import {AuthService} from '../../services/auth-service.service';
+import {SaeService} from '../../services/sae.service';
 
 @Component({
   standalone: true,
@@ -15,18 +16,34 @@ import {AuthService} from '../../services/auth-service.service';
   styleUrls: ['./groupe.component.css']
 })
 export class GroupeComponent implements OnInit {
-  groupes: Groupe[] = [];
-  etudiantsSansGroupe: Etudiant[] = [];
-  nouvelGroupe: Groupe = { nom: '', etudiants: [] };
-  selectedEtudiant?: number;
+  groupes: any[] = [];
+  saes: any[] = [];
+  nouvelGroupe: any = {};
+  selectedSaeId: number | null = null;
+  etudiantsSansGroupe: any[] = [];
+  selectedEtudiant: number | null = null;
 
-
-  constructor(private groupeService: GroupeService, private etudiantService: EtudiantService, private authService: AuthService) {}
+  constructor(private groupeService: GroupeService, private etudiantService: EtudiantService, private authService: AuthService,  private saeService: SaeService) {}
 
   ngOnInit(): void {
     this.chargerGroupes();
     this.chargerEtudiantsSansGroupe();
+    this.getGroupes();
+    this.getSAEs();
   }
+
+  getGroupes(): void {
+    this.groupeService.getGroupes().subscribe(data => {
+      this.groupes = data;
+    });
+  }
+
+  getSAEs(): void {
+    this.saeService.getAllSAEs().subscribe(data => {
+      this.saes = data;
+    });
+  }
+
 
   chargerGroupes(): void {
     this.groupeService.getAll().subscribe({
@@ -48,15 +65,14 @@ export class GroupeComponent implements OnInit {
   }
 
   ajouterGroupe(): void {
-    this.groupeService.create(this.nouvelGroupe).subscribe({
-      next: () => {
-        this.chargerGroupes();
-        this.nouvelGroupe = { nom: '', etudiants: [] };
-      },
-      error: (err) => console.error(err),
-    });
+    if (this.nouvelGroupe.nom && this.selectedSaeId) {
+      this.groupeService.createGroupe(this.nouvelGroupe, this.selectedSaeId).subscribe(groupe => {
+        this.groupes.push(groupe);
+        this.nouvelGroupe = {};
+        this.selectedSaeId = null;
+      });
+    }
   }
-
   supprimerGroupe(id?: number): void {
     if (!id) return;
     this.groupeService.deleteGroupe(id).subscribe({

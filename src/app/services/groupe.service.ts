@@ -43,5 +43,12 @@ export class GroupeService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
+  getGroupes(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  createGroupe(groupe: any, saeId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}?saeId=${saeId}`, groupe);
+  }
 
 }

@@ -31,4 +31,8 @@ export class SaeService {
   deleteSae(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+  getAllSAEs(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl);
+  }
 }
