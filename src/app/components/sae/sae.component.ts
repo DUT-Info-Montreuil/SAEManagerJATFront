@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SaeService } from '../../services/sae.service';
 import {FormsModule} from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 import {AuthService} from '../../services/auth-service.service';
+import { FichierDepot } from '../../models/fichierdepot.model';
+import { Sae } from '../../models/sae.model';
+
 
 @Component({
   selector: 'app-saes',
@@ -10,14 +14,18 @@ import {AuthService} from '../../services/auth-service.service';
   imports: [
     FormsModule,
     NgForOf,
-    NgIf
+    NgIf,
+    RouterModule 
   ],
   styleUrls: ['./sae.component.css']
 })
 export class SaeComponent implements OnInit {
   saes: any[] = [];
+  fichiersDeposes: { [saeId: number]: FichierDepot[] } = {}; 
   newSae = { nom: '', anneeUniversitaire: 2024, semestreUniversitaire: 1, sujet: '' };
   selectedSae: any = null;
+  selectedFile: File | null = null;
+  uploadingSaeId: number | null = null;
 
   constructor(private saeService: SaeService, private authService: AuthService) { }
 
@@ -28,6 +36,7 @@ export class SaeComponent implements OnInit {
   loadSaes(): void {
     this.saeService.getAllSaes().subscribe(data => {
       this.saes = data;
+      this.saes.forEach(sae => this.loadFichiersDeposes(sae.idSAE!));
     });
   }
 
@@ -60,5 +69,38 @@ export class SaeComponent implements OnInit {
     this.saeService.deleteSae(id).subscribe(() => {
       this.loadSaes();
     });
+  }
+
+   loadFichiersDeposes(saeId: number): void {
+    this.saeService.getFichiersDeposesBySAE(saeId).subscribe(files => {
+      this.fichiersDeposes[saeId] = files;
+    });
+  }
+
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
+
+  addFichierDepotToSae(saeId: number): void {
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(this.selectedFile);
+      reader.onload = () => {
+        const fichierDepot: FichierDepot = {
+          nomFichier: this.selectedFile!.name,
+          fichierData: new Uint8Array(reader.result as ArrayBuffer),
+          dateDepot: new Date().toISOString()
+        };
+
+        this.uploadingSaeId = saeId; 
+        this.saeService.addFichierDepotToSAE(saeId, fichierDepot).subscribe(() => {
+          this.loadFichiersDeposes(saeId);
+          this.uploadingSaeId = null;
+          this.selectedFile = null;
+        });
+      };
+    }
   }
 }

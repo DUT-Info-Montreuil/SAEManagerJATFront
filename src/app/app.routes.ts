@@ -6,6 +6,7 @@ import {JurysoutenanceComponent} from './components/jurysoutenance/jurysoutenanc
 import {NotesoutenanceComponent} from './components/notesoutenance/notesoutenance.component';
 import {PassagesoutenanceComponent} from './components/passagesoutenance/passagesoutenance.component';
 import {SaeComponent} from './components/sae/sae.component';
+import { DetailSaeComponent } from './components/detail-sae/detail-sae.component';
 import {SoutenanceComponent} from './components/soutenance/soutenance.component';
 import { GroupeComponent } from './components/groupe/groupe.component';
 import {ConnexionComponent} from './components/connexion/connexion.component';
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'notes-soutenance', component: NotesoutenanceComponent, canActivate: [AuthGuard] },
   { path: 'jury-soutenance', component: JurysoutenanceComponent, canActivate: [AuthGuard] },
   { path: 'saes', component: SaeComponent, canActivate: [AuthGuard] },
+  { path: 'detail-sae/:id', component: DetailSaeComponent },
   { path: 'groupes', component: GroupeComponent, canActivate: [AuthGuard] },
   { path: 'connexion', component: ConnexionComponent },
   {path: 'inscription', component: InscriptionComponent}
