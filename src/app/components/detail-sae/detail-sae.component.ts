@@ -67,20 +67,24 @@ export class DetailSaeComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsArrayBuffer(this.selectedFile);
       reader.onload = () => {
-        const fichierDepot: FichierDepot = {
+        const etudiantId = localStorage.getItem('id_user'); 
+        
+        const fichierDepot: any = {
           nomFichier: this.selectedFile!.name,
           fichierData: new Uint8Array(reader.result as ArrayBuffer),
-          dateDepot: new Date().toISOString()
+          dateDepot: new Date().toISOString(),
+          etudiant: { id: etudiantId }  // Ajoute l'étudiant ici
         };
-
+  
         this.uploading = true;
         if (this.sae?.idSAE)
-        this.saeService.addFichierDepotToSAE(this.sae.idSAE!, fichierDepot).subscribe(() => {
-          this.loadFichiersDeposes(this.sae!.idSAE!);
-          this.uploading = false;
-          this.selectedFile = null;
-        });
+          this.saeService.addFichierDepotToSAE(this.sae.idSAE!, fichierDepot).subscribe(() => {
+            this.loadFichiersDeposes(this.sae!.idSAE!);
+            this.uploading = false;
+            this.selectedFile = null;
+          });
       };
     }
   }
+  
 }

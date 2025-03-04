@@ -14,7 +14,7 @@
     <p>Aucun fichier déposé.</p>
   </ng-template>
 
-  <div *ngIf="estProf()">
+  <div *ngIf="!estProf()">
     <h3>Déposer un fichier</h3>
     <input type="file" (change)="onFileSelected($event)">
     <button class="btn btn-success" (click)="addFichierDepotToSae()" [disabled]="uploading">

@@ -51,6 +51,6 @@ getFichiersDeposesBySAE(id: number): Observable<FichierDepot[]> {
   return this.http.get<FichierDepot[]>(`${this.baseUrl}/${id}/fichiers-depot`);
 }
 
-
+ 
 
 }
