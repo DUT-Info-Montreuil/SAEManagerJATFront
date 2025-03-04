@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <h2 class="text-center">Ajouter une note</h2>
+  <form (ngSubmit)="ajouterNote()">
+    <div class="mb-3">
+      <label for="valeur" class="form-label">Valeur :</label>
+      <input type="number" id="valeur" [(ngModel)]="note.valeur" name="valeur" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="commentaire" class="form-label">Commentaire :</label>
+      <input id="commentaire" [(ngModel)]="note.commentaire" name="commentaire" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="attribuePar" class="form-label">Attribué par :</label>
+      <input id="attribuePar" [(ngModel)]="note.attribuePar" name="attribuePar" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="matiere" class="form-label">Matière :</label>
+      <input id="matiere" [(ngModel)]="note.matiere" name="matiere" class="form-control">
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary">Ajouter la note</button>
+    </div>
+  </form>
+</div>

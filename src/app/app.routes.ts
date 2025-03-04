@@ -11,6 +11,7 @@ import { GroupeComponent } from './components/groupe/groupe.component';
 import {ConnexionComponent} from './components/connexion/connexion.component';
 import {InscriptionComponent} from './components/inscription/inscription.component';
 import {AuthGuard} from './components/connexion/bloquepage.guard';
+import {NoteFormComponent} from './components/note-form/note-form.component';
 
 
 
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'acceuil', component: HomeComponent},
   { path: '', component: HomeComponent, pathMatch: "full"},
   { path: 'etudiants', component: EtudiantComponent, canActivate: [AuthGuard] },
+  { path: 'etudiants/:id/ajouter-note', component: NoteFormComponent },
   { path: 'soutenances', component: SoutenanceComponent, canActivate: [AuthGuard] },
   { path: 'passages-soutenance', component: PassagesoutenanceComponent, canActivate: [AuthGuard] },
   { path: 'notes-soutenance', component: NotesoutenanceComponent, canActivate: [AuthGuard] },

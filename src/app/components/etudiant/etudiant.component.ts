@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EtudiantService } from '../../../../src/app/services/etudiant.service';
 import { Etudiant } from '../../../../src/app/models/etudiant.model';
+import {Router} from '@angular/router';
 
 @Component({
   standalone: true,
@@ -13,13 +14,19 @@ import { Etudiant } from '../../../../src/app/models/etudiant.model';
 })
 export class EtudiantComponent implements OnInit {
 
-  etudiants: Etudiant[] = [];
-  nouvelEtudiant: Etudiant = { nom: '', prenom: '', adresse: '' };
+  etudiants: any[] = [];
+  nouvelEtudiant: any = {};
 
-  constructor(private etudiantService: EtudiantService) {}
+  constructor(private etudiantService: EtudiantService, private router: Router) {}
 
   ngOnInit(): void {
     this.chargerEtudiants();
+    this.getEtudiants();
+
+  }
+
+  getEtudiants(): void {
+    this.etudiantService.getAll().subscribe(data => this.etudiants = data);
   }
 
   chargerEtudiants(): void {
@@ -59,5 +66,9 @@ export class EtudiantComponent implements OnInit {
       next: () => this.chargerEtudiants(),
       error: (err) => console.error(err),
     });
+  }
+
+  ajouterNote(etudiant: any): void {
+    this.router.navigate(['/etudiants', etudiant.id, 'ajouter-note']);
   }
 }
