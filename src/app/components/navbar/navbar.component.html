@@ -11,6 +11,9 @@
         <ng-container *ngIf="isLoggedIn()">
           <li class="nav-item"><a class="nav-link" routerLink="/saes">SAEs</a></li>
           <li class="nav-item"><a class="nav-link" routerLink="/soutenances">Soutenances</a></li>
+          <li  *ngIf="estAdmin()"  class="nav-item"><a class="nav-link" routerLink="/admin">Admin</a></li>
+          <li  *ngIf="estProf()"  class="nav-item"><a class="nav-link" routerLink="/professeur">Professeur</a></li>
+          <li *ngIf="estProf()" class="nav-item"><a class="nav-link" routerLink="/evaluation">Evaluation</a></li>
           <li *ngIf="estProf()" class="nav-item"><a class="nav-link" routerLink="/etudiants">Étudiants</a></li>
           <li class="nav-item"><a class="nav-link" routerLink="/groupes">Groupes</a></li>
           <li class="nav-item">

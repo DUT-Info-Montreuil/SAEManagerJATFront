@@ -12,6 +12,10 @@ import {ConnexionComponent} from './components/connexion/connexion.component';
 import {InscriptionComponent} from './components/inscription/inscription.component';
 import {AuthGuard} from './components/connexion/bloquepage.guard';
 import {AjouterNoteComponent} from './components/ajouter-note/ajouter-note.component';
+import {AdminService} from './services/admin.service';
+import {EvaluationComponent} from './components/evaluation/evaluation.component';
+import {ProfesseurComponent} from './components/professeur/professeur.component';
+import {AdminComponent} from './components/admin/admin.component';
 
 
 
@@ -20,6 +24,9 @@ export const routes: Routes = [
   { path: 'acceuil', component: HomeComponent},
   { path: '', component: HomeComponent, pathMatch: "full"},
   { path: 'etudiants', component: EtudiantComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  { path: 'evaluation', component: EvaluationComponent, canActivate: [AuthGuard] },
+  { path: 'professeur', component: ProfesseurComponent, canActivate: [AuthGuard] },
   { path: 'ajouter-note/:id', component: AjouterNoteComponent },
   { path: 'soutenances', component: SoutenanceComponent, canActivate: [AuthGuard] },
   { path: 'passages-soutenance', component: PassagesoutenanceComponent, canActivate: [AuthGuard] },

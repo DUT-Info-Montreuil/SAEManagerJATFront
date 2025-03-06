@@ -26,4 +26,8 @@ export class NavbarComponent {
   estProf():boolean{
     return this.authService.getRole() === 'PROF';
   }
+
+  estAdmin():boolean{
+    return this.authService.getRole() === 'ADMIN';
+  }
 }

@@ -15,4 +15,12 @@ export class EvaluationService {
   getAllEvaluations():Observable<any>{
     return this.http.get(`${this.apiURL}`)
   }
+
+  addEvaluation(evaluation: any): Observable<any> {
+    return this.http.post(`${this.apiURL}`, evaluation);
+  }
+
+  deleteEvaluation(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiURL}/${id}`);
+  }
 }

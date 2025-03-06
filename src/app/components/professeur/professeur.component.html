@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h2 class="text-center text-light">Gestion des Professeurs</h2>
+
+  <table class="table table-dark table-striped mt-3">
+    <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let professeur of professeurs">
+      <td>{{ professeur.nom }}</td>
+      <td>{{ professeur.prenom }}</td>
+      <td>{{ professeur.email }}</td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteProfessor(professeur.idPersonne)">
+          <i class="bi bi-trash"></i> Supprimer
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="mt-4">
+    <h3>Ajouter un Professeur</h3>
+    <div class="card p-3 shadow">
+      <div class="mb-3">
+        <label class="form-label">Nom</label>
+        <input type="text" class="form-control" [(ngModel)]="newProfessor.nom">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Prénom</label>
+        <input type="text" class="form-control" [(ngModel)]="newProfessor.prenom">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="newProfessor.email">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Mot de Passe</label>
+        <input type="password" class="form-control" [(ngModel)]="newProfessor.password">
+      </div>
+      <button class="btn btn-primary w-100" (click)="addProfessor()">Ajouter</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <h2 class="text-center text-light">Gestion des Utilisateurs</h2>
+
+  <table class="table table-dark table-striped mt-3">
+    <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+      <th>Rôle</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let personne of personnes">
+      <td>{{ personne.nom }}</td>
+      <td>{{ personne.prenom }}</td>
+      <td>{{ personne.email }}</td>
+
+      <td>
+      {{ personne.role }}
+      <select class="form-select" [(ngModel)]="personne.role">
+          <option value="ETUDIANT">Étudiant</option>
+          <option value="PROF">Professeur</option>
+          <option value="ADMIN">Administrateur</option>
+        </select>
+        <button class="btn btn-success btn-sm" (click)="updateRole(personne.idPersonne, personne.role)">
+          <i class="bi bi-pencil"></i> Modifier
+        </button>
+
+
+
+      <td><!-- Bouton Supprimer -->
+        <button class="btn btn-danger btn-sm" (click)="deletePerson(personne.idPersonne)">
+          <i class="bi bi-trash"></i> Supprimer
+        </button>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Formulaire d'ajout d'un utilisateur -->
+  <div class="mt-4">
+    <h3>Ajouter un Utilisateur</h3>
+    <div class="card p-3 shadow">
+      <div class="mb-3">
+        <label class="form-label">Nom</label>
+        <input type="text" class="form-control" [(ngModel)]="newPerson.nom">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Prénom</label>
+        <input type="text" class="form-control" [(ngModel)]="newPerson.prenom">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="newPerson.email">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Mot de Passe</label>
+        <input type="password" class="form-control" [(ngModel)]="newPerson.password">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Rôle</label>
+        <select class="form-select" [(ngModel)]="newPerson.role">
+          <option value="ETUDIANT">Étudiant</option>
+          <option value="PROF">Professeur</option>
+          <option value="ADMIN">Administrateur</option>
+        </select>
+      </div>
+      <button class="btn btn-primary w-100" (click)="addPerson()">Ajouter</button>
+    </div>
+  </div>
+</div>
