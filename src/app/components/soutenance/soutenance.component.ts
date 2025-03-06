@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {SoutenanceService} from '../../services/soutenance.service';
-import {FormsModule} from '@angular/forms';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
-import {AuthService} from '../../services/auth-service.service';
+import { Component, OnInit } from '@angular/core';
+import { SoutenanceService } from '../../services/soutenance.service';
+import { AuthService } from '../../services/auth-service.service';
+import { SaeService } from '../../services/sae.service';
+import { EvaluationService } from '../../services/evaluation.service';
+import { FormsModule } from '@angular/forms';
+import { DatePipe, NgForOf, NgIf } from '@angular/common';
+import {NavbarSoutenanceComponent} from '../navbar-soutenance/navbar-soutenance.component';
 
 @Component({
   selector: 'app-soutenance',
@@ -10,22 +13,37 @@ import {AuthService} from '../../services/auth-service.service';
     FormsModule,
     DatePipe,
     NgForOf,
-    NgIf
+    NgIf,
+    NavbarSoutenanceComponent
   ],
   templateUrl: './soutenance.component.html',
   styleUrl: './soutenance.component.css'
 })
-
 export class SoutenanceComponent implements OnInit {
   soutenances: any[] = [];
-  newSoutenance = { titre: '', salle: '', date: '', sae: { idSAE: 1 } };
+  saes: any[] = [];
+  evaluations: any[] = [];
+
+  newSoutenance = {
+    titre: '',
+    salle: '',
+    date: '',
+    sae: { idSAE: null },
+    evaluation: { idEvaluation: null }
+  };
   selectedSoutenance: any = null;
 
-
-  constructor(private soutenanceService: SoutenanceService, private authService: AuthService) { }
+  constructor(
+    private soutenanceService: SoutenanceService,
+    private authService: AuthService,
+    private saeService: SaeService,
+    private evaluationService: EvaluationService
+  ) { }
 
   ngOnInit(): void {
     this.loadSoutenances();
+    this.loadSaes();
+    this.loadEvaluations();
   }
 
   loadSoutenances(): void {
@@ -34,10 +52,22 @@ export class SoutenanceComponent implements OnInit {
     });
   }
 
+  loadSaes(): void {
+    this.saeService.getAllSaes().subscribe(data => {
+      this.saes = data;
+    });
+  }
+
+  loadEvaluations(): void {
+    this.evaluationService.getAllEvaluations().subscribe(data => {
+      this.evaluations = data;
+    });
+  }
+
   addSoutenance(): void {
     this.soutenanceService.addSoutenance(this.newSoutenance).subscribe(() => {
       this.loadSoutenances();
-      this.newSoutenance = { titre: '', salle: '', date: '', sae: { idSAE: 1 } };
+      this.newSoutenance = { titre: '', salle: '', date: '', sae: { idSAE: null }, evaluation: { idEvaluation: null } };
     });
   }
 
@@ -64,4 +94,3 @@ export class SoutenanceComponent implements OnInit {
     });
   }
 }
-

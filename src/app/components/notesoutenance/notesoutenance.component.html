@@ -1,25 +1,24 @@
+<app-navbar-soutenance></app-navbar-soutenance>
+
 <div class="container mt-4">
-  <h2 class="text-center text-light">Gestion des Notes de Soutenance</h2>
+  <h2 class="text-center text-light">Notes des Soutenances</h2>
 
   <table class="table table-dark table-striped mt-3">
     <thead>
     <tr>
-      <th>ID Soutenance</th>
-      <th>ID Étudiant</th>
+      <th>Soutenance</th>
+      <th>Groupe</th>
       <th>Note</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let note of notes">
-      <td>{{ note.soutenance.idSoutenance }}</td>
-      <td>{{ note.etudiant.idPersonne }}</td>
+      <td>{{ note.soutenance.titre }}</td>
+      <td>{{ note.groupe.nom }}</td>
       <td>{{ note.note }}</td>
       <td>
-        <button class="btn btn-warning btn-sm me-2" (click)="editNote(note)">
-          <i class="bi bi-pencil"></i> Modifier
-        </button>
-        <button class="btn btn-danger btn-sm" (click)="deleteNote(note.idNote)">
+        <button *ngIf="estProf()" class="btn btn-danger btn-sm" (click)="removeNote(note.idNote)">
           <i class="bi bi-trash"></i> Supprimer
         </button>
       </td>
@@ -27,20 +26,30 @@
     </tbody>
   </table>
 
-  <h3 class="mt-4">Ajouter une Note</h3>
-  <div class="card p-3 shadow">
-    <div class="mb-3">
-      <label class="form-label">ID Soutenance</label>
-      <input type="number" class="form-control" [(ngModel)]="newNote.soutenance.idSoutenance">
+  <div *ngIf="estProf()">
+    <h3 class="mt-4">Attribuer une Note</h3>
+    <div class="card p-3 shadow">
+      <div class="mb-3">
+        <label class="form-label">Sélectionner une Soutenance</label>
+        <select class="form-select" [(ngModel)]="newNote.soutenance.idSoutenance">
+          <option *ngFor="let soutenance of soutenances" [value]="soutenance.idSoutenance">
+            {{ soutenance.titre }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Sélectionner un Groupe</label>
+        <select class="form-select" [(ngModel)]="newNote.groupe.idGroupe">
+          <option *ngFor="let groupe of groupes" [value]="groupe.idGroupe">
+            {{ groupe.nom }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Note</label>
+        <input type="number" class="form-control" [(ngModel)]="newNote.note" step="0.1">
+      </div>
+      <button class="btn btn-primary w-100" (click)="addNote()">Ajouter</button>
     </div>
-    <div class="mb-3">
-      <label class="form-label">ID Étudiant</label>
-      <input type="number" class="form-control" [(ngModel)]="newNote.etudiant.idPersonne">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Note</label>
-      <input type="number" class="form-control" [(ngModel)]="newNote.note">
-    </div>
-    <button class="btn btn-primary w-100" (click)="addNote()">Ajouter</button>
   </div>
 </div>
