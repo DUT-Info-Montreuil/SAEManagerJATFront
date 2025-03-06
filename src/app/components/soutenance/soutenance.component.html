@@ -1,3 +1,4 @@
+<app-navbar-soutenance></app-navbar-soutenance>
 <div class="container mt-4">
   <h2 class="text-center text-light">Gestion des Soutenances</h2>
 
@@ -6,6 +7,8 @@
     <tr>
       <th>Titre</th>
       <th>Salle</th>
+      <th>Sae</th>
+      <th>Evaluation</th>
       <th>Date</th>
       <th>Actions</th>
     </tr>
@@ -14,7 +17,9 @@
     <tr *ngFor="let soutenance of soutenances">
       <td>{{ soutenance.titre }}</td>
       <td>{{ soutenance.salle }}</td>
-      <td>{{ soutenance.date | date:'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ soutenance.sae}}</td>
+      <td>{{ soutenance.evaluation}}</td>
+      <td>{{ soutenance.date | date:'dd/MM/yyyy' }}</td>
       <td>
         <button *ngIf="estProf()" class="btn btn-warning btn-sm me-2" (click)="editSoutenance(soutenance)">
           <i class="bi bi-pencil"></i> Modifier
@@ -26,7 +31,6 @@
     </tr>
     </tbody>
   </table>
-
 
   <div *ngIf="estProf()">
     <h3 class="mt-4">Ajouter une Soutenance</h3>
@@ -42,6 +46,20 @@
       <div class="mb-3">
         <label class="form-label">Date</label>
         <input type="datetime-local" class="form-control" [(ngModel)]="newSoutenance.date">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Sélectionner une SAE</label>
+        <select class="form-select" [(ngModel)]="newSoutenance.sae.idSAE">
+          <option *ngFor="let sae of saes" [value]="sae.idSAE">{{ sae.nom }}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Sélectionner une Évaluation</label>
+        <select class="form-select" [(ngModel)]="newSoutenance.evaluation.idEvaluation">
+          <option *ngFor="let evaluation of evaluations" [value]="evaluation.idEvaluation">
+            {{ evaluation.nom }}
+          </option>
+        </select>
       </div>
       <button class="btn btn-primary w-100" (click)="addSoutenance()">Ajouter</button>
     </div>

@@ -1,21 +1,22 @@
+<app-navbar-soutenance></app-navbar-soutenance>
+
 <div class="container mt-4">
-  <h2 class="text-center text-light">Gestion du Jury</h2>
+  <h2 class="text-center text-light">Gestion des Jurys</h2>
 
   <table class="table table-dark table-striped mt-3">
     <thead>
     <tr>
-      <th>ID Soutenance</th>
-      <th>ID Personne</th>
+      <th>Soutenance</th>
+      <th>Membre du Jury</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let jury of jurys">
-      <td>{{ jury.soutenance.idSoutenance }}</td>
-      <td>{{ jury.personne.idPersonne }}</td>
+      <td>{{ jury.soutenance.titre }}</td>
+      <td>{{ jury.personne.nom }} {{ jury.personne.prenom }}</td>
       <td>
-
-        <button class="btn btn-danger btn-sm" (click)="deleteJury(jury.idJurySoutenance)">
+        <button *ngIf="estProf()" class="btn btn-danger btn-sm" (click)="removeJury(jury.idJurySoutenance)">
           <i class="bi bi-trash"></i> Supprimer
         </button>
       </td>
@@ -23,16 +24,26 @@
     </tbody>
   </table>
 
-  <h3 class="mt-4">Ajouter un Jury</h3>
-  <div class="card p-3 shadow">
-    <div class="mb-3">
-      <label class="form-label">ID Soutenance</label>
-      <input type="number" class="form-control" [(ngModel)]="newJury.soutenance.idSoutenance">
+  <div *ngIf="estProf()">
+    <h3 class="mt-4">Ajouter un Membre du Jury</h3>
+    <div class="card p-3 shadow">
+      <div class="mb-3">
+        <label class="form-label">Sélectionner une Soutenance</label>
+        <select class="form-select" [(ngModel)]="newJury.soutenance.idSoutenance">
+          <option *ngFor="let soutenance of soutenances" [value]="soutenance.idSoutenance">
+            {{ soutenance.titre }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Sélectionner un Membre du Jury</label>
+        <select class="form-select" [(ngModel)]="newJury.personne.idPersonne">
+          <option *ngFor="let personne of profs" [value]="personne.idPersonne">
+            {{ personne.nom }} {{ personne.prenom }}
+          </option>
+        </select>
+      </div>
+      <button class="btn btn-primary w-100" (click)="addJury()">Ajouter</button>
     </div>
-    <div class="mb-3">
-      <label class="form-label">ID Personne</label>
-      <input type="number" class="form-control" [(ngModel)]="newJury.personne.idPersonne">
-    </div>
-    <button class="btn btn-primary w-100" (click)="addJury()">Ajouter</button>
   </div>
 </div>

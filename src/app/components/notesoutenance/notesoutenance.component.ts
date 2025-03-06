@@ -1,58 +1,79 @@
-import {Component, OnInit} from '@angular/core';
-import {NoteSoutenanceService} from '../../services/notesoutenance.service';
-import {FormsModule} from '@angular/forms';
-import {NgForOf} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { NoteSoutenanceService } from '../../services/notesoutenance.service';
+import { FormsModule } from '@angular/forms';
+import { NgForOf, NgIf } from '@angular/common';
+import { AuthService } from '../../services/auth-service.service';
+import { SoutenanceService } from '../../services/soutenance.service';
+import { GroupeService } from '../../services/groupe.service';
+import {NavbarSoutenanceComponent} from '../navbar-soutenance/navbar-soutenance.component';
 
 @Component({
   selector: 'app-notesoutenance',
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf,
+    NavbarSoutenanceComponent
   ],
   templateUrl: './notesoutenance.component.html',
   styleUrl: './notesoutenance.component.css'
 })
-
 export class NotesoutenanceComponent implements OnInit {
   notes: any[] = [];
-  newNote = { soutenance: { idSoutenance: 1 }, etudiant: { idPersonne: 3 }, note: 0 };
-  selectedNote: any = null;
+  soutenances: any[] = [];
+  groupes: any[] = [];
 
-  constructor(private noteService: NoteSoutenanceService) { }
+  newNote = {
+    soutenance: { idSoutenance: null },
+    groupe: { idGroupe: null },
+    note: null
+  };
+
+  constructor(
+    private notesService: NoteSoutenanceService,
+    private soutenanceService: SoutenanceService,
+    private groupeService: GroupeService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loadNotes();
+    this.loadSoutenances();
+    this.loadGroupes();
   }
 
   loadNotes(): void {
-    this.noteService.getAllNotes().subscribe(data => {
+    this.notesService.getAllNotes().subscribe(data => {
       this.notes = data;
     });
   }
 
+  loadSoutenances(): void {
+    this.soutenanceService.getAllSoutenances().subscribe(data => {
+      this.soutenances = data;
+    });
+  }
+
+  loadGroupes(): void {
+    this.groupeService.getAll().subscribe(data => {
+      this.groupes = data;
+    });
+  }
+
   addNote(): void {
-    this.noteService.addNote(this.newNote).subscribe(() => {
+    this.notesService.addNote(this.newNote).subscribe(() => {
+      this.loadNotes();
+      this.newNote = { soutenance: { idSoutenance: null }, groupe: { idGroupe: null }, note: null };
+    });
+  }
+
+  removeNote(id: number): void {
+    this.notesService.deleteNote(id).subscribe(() => {
       this.loadNotes();
     });
   }
 
-  editNote(note: any): void {
-    this.selectedNote = { ...note };
-  }
-
-  updateNote(): void {
-    if (this.selectedNote) {
-      this.noteService.updateNote(this.selectedNote.idNote, this.selectedNote).subscribe(() => {
-        this.loadNotes();
-        this.selectedNote = null;
-      });
-    }
-  }
-
-  deleteNote(id: number): void {
-    this.noteService.deleteNote(id).subscribe(() => {
-      this.loadNotes();
-    });
+  estProf(): boolean {
+    return this.authService.getRole() === 'PROF';
   }
 }
-
