@@ -13,7 +13,7 @@ import {FormsModule} from '@angular/forms';
 })
 export class AjouterNoteComponent {
   etudiantId!: number;
-  note = { valeur: '', matiere: '', commentaire: '' };
+  note = { valeur: '', matiere: '', attribuePar: '', commentaire: '' };
 
   constructor(private route: ActivatedRoute, private etudiantService: EtudiantService, private router: Router) {}
 

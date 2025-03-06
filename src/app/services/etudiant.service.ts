@@ -39,5 +39,4 @@ export class EtudiantService {
   ajouterNoteAEtudiant(etudiantId: number, note: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/${etudiantId}/notes`, note);
   }
-
 }

@@ -13,6 +13,11 @@
       </div>
 
       <div class="mb-3">
+        <label for="attribuePar" class="form-label">Attribué par :</label>
+        <input id="attribuePar" [(ngModel)]="note.attribuePar" name="attribuePar" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
         <label for="commentaire" class="form-label">Commentaire :</label>
         <textarea id="commentaire" [(ngModel)]="note.commentaire" name="commentaire" class="form-control"></textarea>
       </div>
