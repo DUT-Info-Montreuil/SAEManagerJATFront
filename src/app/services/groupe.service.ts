@@ -17,7 +17,7 @@ export class GroupeService {
       map(groupes =>
         groupes.map(groupe => ({
           ...groupe,
-          etudiants: groupe.etudiants || []
+          personnes: groupe.personnes || []
         }))
       )
     );
@@ -31,17 +31,33 @@ export class GroupeService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  addEtudiantToGroupe(groupeId: number, etudiantId: number): Observable<Groupe> {
+  addPersonneToGroupe(groupeId: number, etudiantId: number): Observable<Groupe> {
     return this.http.post<Groupe>(`${this.apiUrl}/${groupeId}/ajouter-etudiant/${etudiantId}`, {});
   }
 
-  removeEtudiantFromGroupe(groupeId: number, etudiantId: number): Observable<Groupe> {
-    return this.http.delete<Groupe>(`${this.apiUrl}/${groupeId}/supprimer-etudiant/${etudiantId}`);
+  removePersonneFromGroupe(groupeId: number, personneId: number): Observable<Groupe> {
+    return this.http.delete<Groupe>(`${this.apiUrl}/${groupeId}/supprimer-personne/${personneId}`);
   }
 
   deleteGroupe(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  getGroupeById(id: number): Observable<Groupe> {
+    return this.http.get<Groupe>(`${this.apiUrl}/${id}/user`);
+}
+
+
+  getGroupeId(id: number): Observable<number | undefined> {
+    return this.getGroupeById(id).pipe(
+        map((groupe: Groupe | null) => {
+            if (!groupe) {
+                console.warn("⚠️ Aucun groupe trouvé pour cet utilisateur.");
+                return undefined;
+            }
+            return groupe.id;
+        })
+    );
+}
 
 
 }

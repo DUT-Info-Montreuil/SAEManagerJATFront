@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GroupeService } from '../../services/groupe.service';
-import { EtudiantService } from '../../services/etudiant.service';
+import { PersonneService } from '../../services/personne.service';
 import { Groupe } from '../../models/groupe.model';
-import { Etudiant } from '../../models/etudiant.model';
-import {AuthService} from '../../services/auth-service.service';
+import { Personne } from '../../models/personne.model';
+import { AuthService } from '../../services/auth-service.service';
 
 @Component({
   standalone: true,
@@ -16,16 +16,19 @@ import {AuthService} from '../../services/auth-service.service';
 })
 export class GroupeComponent implements OnInit {
   groupes: Groupe[] = [];
-  etudiantsSansGroupe: Etudiant[] = [];
-  nouvelGroupe: Groupe = { nom: '', etudiants: [] };
-  selectedEtudiant?: number;
+  personnesSansGroupe: Personne[] = [];
+  nouvelGroupe: Groupe = { nom: '', personnes: [] };
+  selectedPersonne?: number;
 
-
-  constructor(private groupeService: GroupeService, private etudiantService: EtudiantService, private authService: AuthService) {}
+  constructor(
+    private groupeService: GroupeService,
+    private personneService: PersonneService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.chargerGroupes();
-    this.chargerEtudiantsSansGroupe();
+    this.chargerPersonnesSansGroupe();
   }
 
   chargerGroupes(): void {
@@ -33,16 +36,16 @@ export class GroupeComponent implements OnInit {
       next: (data) => {
         this.groupes = data.map(groupe => ({
           ...groupe,
-          etudiants: groupe.etudiants || []
+          personnes: groupe.personnes || []
         }));
       },
       error: (err) => console.error(err),
     });
   }
 
-  chargerEtudiantsSansGroupe(): void {
-    this.etudiantService.getEtudiantsSansGroupe().subscribe({
-      next: (data) => this.etudiantsSansGroupe = data,
+  chargerPersonnesSansGroupe(): void {
+    this.personneService.getPersonnesSansGroupe().subscribe({
+      next: (data) => this.personnesSansGroupe = data,
       error: (err) => console.error(err),
     });
   }
@@ -51,7 +54,7 @@ export class GroupeComponent implements OnInit {
     this.groupeService.create(this.nouvelGroupe).subscribe({
       next: () => {
         this.chargerGroupes();
-        this.nouvelGroupe = { nom: '', etudiants: [] };
+        this.nouvelGroupe = { nom: '', personnes: [] };
       },
       error: (err) => console.error(err),
     });
@@ -62,36 +65,34 @@ export class GroupeComponent implements OnInit {
     this.groupeService.deleteGroupe(id).subscribe({
       next: () => {
         this.chargerGroupes();
-        this.chargerEtudiantsSansGroupe();
+        this.chargerPersonnesSansGroupe();
       },
       error: (err) => console.error(err),
     });
   }
 
-
-  ajouterEtudiantAuGroupe(groupeId: number, etudiantId: number): void {
-    this.groupeService.addEtudiantToGroupe(groupeId, etudiantId).subscribe({
+  ajouterPersonneAuGroupe(groupeId: number, personneId: number): void {
+    this.groupeService.addPersonneToGroupe(groupeId, personneId).subscribe({
       next: () => {
         this.chargerGroupes();
-        this.chargerEtudiantsSansGroupe();
+        this.chargerPersonnesSansGroupe();
       },
       error: (err) => console.error(err),
     });
   }
 
-  estProf(): boolean{
-      return this.authService.getRole() === 'PROF';
-}
-
-
-  retirerEtudiantDuGroupe(groupeId: number, etudiantId: number): void {
-    this.groupeService.removeEtudiantFromGroupe(groupeId, etudiantId).subscribe({
+  retirerPersonneDuGroupe(groupeId: number, personneId: number): void {
+    this.groupeService.removePersonneFromGroupe(groupeId, personneId).subscribe({
       next: () => {
         this.chargerGroupes();
-        this.chargerEtudiantsSansGroupe();
+        this.chargerPersonnesSansGroupe();
       },
       error: (err) => console.error(err),
     });
+  }
+
+  estProf(): boolean {
+    return this.authService.getRole() === 'PROF';
   }
 
   protected readonly Number = Number;

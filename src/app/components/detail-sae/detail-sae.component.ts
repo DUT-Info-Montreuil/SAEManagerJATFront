@@ -67,13 +67,18 @@ export class DetailSaeComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsArrayBuffer(this.selectedFile);
       reader.onload = () => {
-        const etudiantId = localStorage.getItem('id_user'); 
+        const personneId = localStorage.getItem('id_user');
+        const groupeId = localStorage.getItem('id_groupe'); // Ajout du groupeId
+
+        console.log("personneId existe :", personneId ? true : false, "Valeur :", personneId);
+        console.log("groupeId existe :", groupeId ? true : false, "Valeur :", groupeId);
         
         const fichierDepot: any = {
           nomFichier: this.selectedFile!.name,
           fichierData: new Uint8Array(reader.result as ArrayBuffer),
           dateDepot: new Date().toISOString(),
-          etudiant: { id: etudiantId }  // Ajoute l'étudiant ici
+          personne: personneId ? { id: personneId } : null,
+          groupe: groupeId ? { id: groupeId } : null  // Ajout de la gestion du groupe
         };
   
         this.uploading = true;

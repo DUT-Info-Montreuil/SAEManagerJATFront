@@ -17,6 +17,7 @@ export class AuthService {
         (response: any) => {
           if (response.token) {
             localStorage.setItem('token', response.token);
+            localStorage.setItem('id_user', response.id_user);  
             const decodedToken = this.decodeToken(response.token);
             localStorage.setItem('role', decodedToken.role);
           }
@@ -29,6 +30,7 @@ export class AuthService {
       );
     });
   }
+  
 
   isLoggedIn(): boolean {
     return localStorage.getItem('token') !== null;

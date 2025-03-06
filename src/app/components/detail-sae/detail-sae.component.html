@@ -1,27 +1,38 @@
-<div *ngIf="sae">
-  <h2>Détails de la SAE : {{ sae.nom }}</h2>
-  <p><strong>Année Universitaire :</strong> {{ sae.anneeUniversitaire }}</p>
-  <p><strong>Semestre :</strong> {{ sae.semestreUniversitaire }}</p>
-  <p><strong>Sujet :</strong> {{ sae.sujet }}</p>
-
-  <h3>Fichiers déposés</h3>
-  <ul *ngIf="fichiersDeposes.length > 0; else noFiles">
-    <li *ngFor="let fichier of fichiersDeposes">
-      {{ fichier.nomFichier }} (Déposé le {{ fichier.dateDepot | date:'short' }})
-    </li>
-  </ul>
-  <ng-template #noFiles>
-    <p>Aucun fichier déposé.</p>
-  </ng-template>
-
-  <div *ngIf="!estProf()">
-    <h3>Déposer un fichier</h3>
-    <input type="file" (change)="onFileSelected($event)">
-    <button class="btn btn-success" (click)="addFichierDepotToSae()" [disabled]="uploading">
-      Déposer fichier
-    </button>
-    <p *ngIf="uploading">Envoi en cours...</p>
+<div class="container mt-5" *ngIf="sae">
+  <div class="card shadow-sm p-4">
+    <h2 class="text-center">Détails de la SAE</h2>
+    <p><strong>Nom :</strong> {{ sae.nom }}</p>
+    <p><strong>Année Universitaire :</strong> {{ sae.anneeUniversitaire }}</p>
+    <p><strong>Semestre :</strong> {{ sae.semestreUniversitaire }}</p>
+    <p><strong>Sujet :</strong> {{ sae.sujet }}</p>
   </div>
 
-  <button class="btn btn-secondary mt-3" routerLink="/saes">Retour</button>
+  <div class="card shadow-sm p-4 mt-4" *ngIf="estProf()">
+    <h3 class="text-center">Fichiers déposés</h3>
+    <ul class="list-group" *ngIf="fichiersDeposes.length > 0; else noFiles">
+      <li class="list-group-item" *ngFor="let fichier of fichiersDeposes">
+        {{ fichier.nomFichier }} (Déposé le {{ fichier.dateDepot | date:'short' }})
+      </li>
+    </ul>
+    <ng-template #noFiles>
+      <p class="text-muted text-center">Aucun fichier déposé.</p>
+    </ng-template>
+  </div>
+
+  <div class="card shadow-sm p-4 mt-4" *ngIf="!estProf()">
+    <h3 class="text-center">Déposer un fichier</h3>
+    <div class="mb-3">
+      <input type="file" class="form-control" (change)="onFileSelected($event)">
+    </div>
+    <div class="text-center">
+      <button class="btn btn-success" (click)="addFichierDepotToSae()" [disabled]="uploading || !selectedFile">
+        Déposer fichier
+      </button>
+      <p *ngIf="uploading" class="text-muted mt-2">Envoi en cours...</p>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-secondary" routerLink="/saes">Retour</button>
+  </div>
 </div>

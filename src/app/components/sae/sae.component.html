@@ -24,7 +24,7 @@
         <button *ngIf="estProf()" class="btn btn-danger btn-sm" (click)="deleteSae(sae.idSAE)">
           <i class="bi bi-trash"></i> Supprimer
         </button>
-        <button *ngIf="!estProf()" class="btn btn-primary btn-sm" [routerLink]="['/detail-sae', sae.idSAE]">
+        <button class="btn btn-primary btn-sm" [routerLink]="['/detail-sae', sae.idSAE]">
           <i class="bi bi-eye"></i> Détails
         </button>     
       </td>

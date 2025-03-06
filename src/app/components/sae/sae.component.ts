@@ -55,6 +55,7 @@ export class SaeComponent implements OnInit {
   estProf(): boolean {
     return this.authService.getRole() === 'PROF';
   }
+  
 
   updateSae(): void {
     if (this.selectedSae) {
@@ -80,27 +81,5 @@ export class SaeComponent implements OnInit {
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
-  }
-
-
-  addFichierDepotToSae(saeId: number): void {
-    if (this.selectedFile) {
-      const reader = new FileReader();
-      reader.readAsArrayBuffer(this.selectedFile);
-      reader.onload = () => {
-        const fichierDepot: FichierDepot = {
-          nomFichier: this.selectedFile!.name,
-          fichierData: new Uint8Array(reader.result as ArrayBuffer),
-          dateDepot: new Date().toISOString()
-        };
-
-        this.uploadingSaeId = saeId; 
-        this.saeService.addFichierDepotToSAE(saeId, fichierDepot).subscribe(() => {
-          this.loadFichiersDeposes(saeId);
-          this.uploadingSaeId = null;
-          this.selectedFile = null;
-        });
-      };
-    }
   }
 }
