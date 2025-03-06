@@ -20,7 +20,7 @@ export class EtudiantService {
     return this.http.get<Etudiant>(`${this.apiUrl}/${id}`);
   }
 
-  create(etudiant: Etudiant): Observable<Etudiant> {
+  create(etudiant: any): Observable<Etudiant> {
     return this.http.post<Etudiant>(this.apiUrl, etudiant);
   }
 
@@ -28,7 +28,7 @@ export class EtudiantService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  update(etudiant: Etudiant): Observable<Etudiant> {
+  update(etudiant: any): Observable<Etudiant> {
     return this.http.put<Etudiant>(`${this.apiUrl}/${etudiant.id}`, etudiant);
   }
 
@@ -36,5 +36,8 @@ export class EtudiantService {
     return this.http.get<Etudiant[]>(`${this.apiUrl}/sans-groupe`);
   }
 
+  ajouterNoteAEtudiant(etudiantId: number, note: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${etudiantId}/notes`, note);
+  }
 
 }
